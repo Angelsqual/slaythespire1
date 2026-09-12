@@ -5,6 +5,8 @@ const characters = {
     id: "dragon",
     name: "Draco de Tifón",
     icon: "🐉",
+    portrait: "assets/dragon.png",
+    portraitAlt: "Retrato pintado del Draco de Tifón",
     role: "Tesoro · Fuego · Riesgo",
     color: "#ff9d6c",
     description: "Acumula calor y tesoro hasta convertir una chispa en una catástrofe.",
@@ -16,6 +18,8 @@ const characters = {
     id: "medusa",
     name: "Medusa de Argos",
     icon: "🐍",
+    portrait: "assets/medusa.png",
+    portraitAlt: "Retrato pintado de Medusa de Argos",
     role: "Mirada · Veneno · Control",
     color: "#7dd8d0",
     description: "Mira demasiado tiempo y hasta los titanes aprenden a temer la piedra.",
@@ -27,6 +31,8 @@ const characters = {
     id: "minotaur",
     name: "Minotauro del Laberinto",
     icon: "🐂",
+    portrait: "assets/minotaur.png",
+    portraitAlt: "Retrato pintado del Minotauro del Laberinto",
     role: "Furia · Carga · Momentum",
     color: "#bc92ff",
     description: "Cada golpe te acerca al borde. Cada paso más allá del borde rompe un muro.",
@@ -125,15 +131,79 @@ const enemies = {
   typhon: { name: "Tifón, padre de monstruos", icon: "🌋", type: "Jefe · Cataclismo primordial", maxHp: 124, hp: 124, color: "#ff7d86", intent: "typhon", boss: true },
 };
 
-const mapNodes = [
-  { type: "battle", label: "Ruinas", icon: "⚔", desc: "Un combate normal" },
-  { type: "event", label: "Oráculo", icon: "☽", desc: "Una decisión con precio" },
-  { type: "camp", label: "Santuario", icon: "✿", desc: "Descansa o mejora" },
-  { type: "elite", label: "Coliseo", icon: "♜", desc: "Riesgo y gran recompensa" },
-  { type: "event", label: "Pacto", icon: "⌁", desc: "El destino negocia" },
-  { type: "battle", label: "Cenizas", icon: "⚔", desc: "Un último combate" },
-  { type: "boss", label: "Tifón", icon: "✹", desc: "El padre de monstruos" },
+const mapBlueprint = [
+  {
+    label: "La frontera del bosque",
+    nodes: [
+      { type: "battle", label: "Sendero de raíces", icon: "⚔", desc: "Un combate sencillo para probar tu mazo.", flavour: "Las raíces se apartan apenas lo suficiente para dejarte pasar. Algo te sigue desde la maleza." },
+      { type: "event", label: "Altar cubierto", icon: "☽", desc: "Una ofrenda antigua pide una decisión.", flavour: "La piedra conserva el nombre de un dios que ya no tiene nadie que lo recuerde." },
+      { type: "camp", label: "Claro de luciérnagas", icon: "✿", desc: "Descansa o templa una carta.", flavour: "Entre las luces doradas, el bosque parece respirar al ritmo de tu corazón." },
+    ],
+  },
+  {
+    label: "Los caminos que se separan",
+    nodes: [
+      { type: "battle", label: "Puente hundido", icon: "⚔", desc: "Cruza un barranco guardado por arpías.", flavour: "El puente termina en el aire. Las arpías han hecho de la otra orilla su nido." },
+      { type: "event", label: "Pozo de los ecos", icon: "⌁", desc: "Pregunta al bosque, pero escucha el precio.", flavour: "Tu voz regresa con otra voz detrás. El pozo sabe una ruta que tú no ves." },
+      { type: "camp", label: "Círculo de piedra", icon: "✿", desc: "Un descanso seguro junto a las ruinas.", flavour: "Los monolitos forman un reloj sin agujas. Aquí el tiempo parece más lento." },
+    ],
+  },
+  {
+    label: "La espesura antigua",
+    nodes: [
+      { type: "elite", label: "Guardia de bronce", icon: "♜", desc: "Un enemigo élite con una recompensa mayor.", flavour: "Las armaduras del viejo templo caminan sin nadie dentro. Una de ellas te señala." },
+      { type: "event", label: "Jardín petrificado", icon: "◉", desc: "Arriesga vitalidad por una mejora poderosa.", flavour: "Cada estatua tiene unos ojos demasiado parecidos a los de Medusa." },
+      { type: "battle", label: "Barranco de humo", icon: "⚔", desc: "Combate contra una criatura de la espesura.", flavour: "Una grieta humea bajo los helechos. El olor recuerda al hierro caliente." },
+    ],
+  },
+  {
+    label: "Las ruinas del panteón",
+    nodes: [
+      { type: "event", label: "Oráculo sin rostro", icon: "☽", desc: "Una visión puede cambiar tu construcción.", flavour: "La máscara del oráculo se gira sola hacia ti. No tiene ojos, pero te está mirando." },
+      { type: "battle", label: "Galería de mármol", icon: "⚔", desc: "Un combate normal entre dioses caídos.", flavour: "Las columnas muestran victorias de héroes que ya no existen. La próxima inscripción está vacía." },
+      { type: "elite", label: "Puerta del coloso", icon: "♜", desc: "El guardián más duro antes del umbral.", flavour: "La puerta no se abre: se inclina hacia delante, como si el edificio entero quisiera luchar." },
+    ],
+  },
+  {
+    label: "El último ascenso",
+    nodes: [
+      { type: "camp", label: "Hoguera lunar", icon: "✿", desc: "Último descanso antes del jefe.", flavour: "La luna se refleja en las brasas. El camino de vuelta ha desaparecido." },
+      { type: "battle", label: "Lago de ceniza", icon: "⚔", desc: "Una última batalla para afinar tu mazo.", flavour: "Bajo la ceniza flotan coronas, espadas y nombres. Algo se mueve debajo." },
+      { type: "event", label: "Pacto final", icon: "⌁", desc: "El destino ofrece una ventaja con un coste.", flavour: "Una sombra te ofrece la mano. En su palma está dibujado el mapa que acabas de recorrer." },
+    ],
+  },
+  {
+    label: "El Umbral",
+    nodes: [
+      { type: "boss", label: "Tifón", icon: "✹", desc: "El padre de los monstruos. No hay otra salida.", flavour: "La montaña se abre. Tifón despierta y el cielo aprende a tener miedo." },
+    ],
+  },
 ];
+
+function buildMap() {
+  const rows = [20, 50, 80];
+  const layers = mapBlueprint.map((layer, layerIndex) => layer.nodes.map((node, nodeIndex) => ({
+    ...node,
+    id: `node-${layerIndex}-${nodeIndex}`,
+    layer: layerIndex,
+    x: layerIndex / (mapBlueprint.length - 1) * 100,
+    y: layer.nodes.length === 1 ? 50 : rows[nodeIndex],
+    children: [],
+  })));
+  const edges = [];
+  layers.forEach((layer, layerIndex) => {
+    if (layerIndex === layers.length - 1) return;
+    const nextLayer = layers[layerIndex + 1];
+    layer.forEach((node, nodeIndex) => {
+      const targetIndexes = nextLayer.length === 1
+        ? [0]
+        : [...new Set([nodeIndex % nextLayer.length, (nodeIndex + 1) % nextLayer.length, ...(layerIndex % 2 === 0 ? [(nodeIndex + 2) % nextLayer.length] : [])])];
+      node.children = targetIndexes.map((index) => nextLayer[index].id);
+      node.children.forEach((childId) => edges.push({ from: node.id, to: childId }));
+    });
+  });
+  return { layers, nodes: layers.flat(), edges };
+}
 
 const state = { screen: "select", selectedCharacter: null, run: null, combat: null, reward: null, modal: null, toastTimer: null };
 
@@ -153,7 +223,7 @@ function renderCharacters() {
   $("#character-grid").innerHTML = Object.values(characters).map((character) => `
     <button class="character-card ${state.selectedCharacter === character.id ? "selected" : ""}" style="--character-color:${character.color}" data-action="select-character" data-character="${character.id}">
       <span class="selection-check">✦</span>
-      <div class="character-art">${character.icon}</div>
+      <div class="character-art"><img src="${character.portrait}" alt="${character.portraitAlt}" /></div>
       <p class="character-role">${character.role}</p>
       <h4>${character.name}</h4>
       <p>${character.description}</p>
@@ -172,12 +242,17 @@ function startRun(characterId = state.selectedCharacter) {
     maxHp: character.maxHp,
     gold: 45,
     wins: 0,
-    stage: 0,
+    map: buildMap(),
+    mapLayer: 0,
+    activeNodeId: null,
+    availableNodeIds: [],
+    completedNodeIds: [],
     rested: false,
     deck: character.deck.map((id) => cardFromId(id)),
     relics: [character.startingRelic],
     logs: [],
   };
+  state.run.availableNodeIds = state.run.map.layers[0].map((node) => node.id);
   state.combat = null;
   state.reward = null;
   state.modal = null;
@@ -210,57 +285,63 @@ function render() {
 function renderTopbar() {
   if (!state.run) { $("#run-summary").textContent = "Prototipo · build 01"; return; }
   const character = characters[state.run.characterId];
-  $("#run-summary").innerHTML = `<span style="color:${character.color}">${character.icon} ${character.name}</span> · Acto I · Nodo ${Math.min(state.run.stage + 1, mapNodes.length)}/${mapNodes.length}`;
+  const progress = state.run.completedNodeIds.length;
+  $("#run-summary").innerHTML = `<span style="color:${character.color}">${character.icon} ${character.name}</span> · Bosque de Nemea · ${progress}/16 hitos`;
 }
 
 function renderMap() {
   const run = state.run;
   const character = characters[run.characterId];
-  $("#map-stage-label").textContent = `ACTO I · ${run.stage >= mapNodes.length - 1 ? "EL UMBRAL" : `NODO ${run.stage + 1}`}`;
-  $("#map-character-icon").textContent = character.icon;
+  const activeNode = run.map.nodes.find((node) => node.id === run.activeNodeId);
+  const currentLayer = run.map.layers[run.mapLayer] || run.map.layers[0];
+  $("#map-stage-label").textContent = `ACTO I · CAPA ${Math.min(run.mapLayer + 1, run.map.layers.length)}/${run.map.layers.length} · ${currentLayer[0].layer === run.map.layers.length - 1 ? "EL UMBRAL" : "BOSQUE"}`;
+  $("#map-character-icon").innerHTML = `<img class="small-portrait" src="${character.portrait}" alt="${character.portraitAlt}" />`;
   $("#map-character-name").textContent = character.name;
   $("#map-hp").textContent = `${run.hp}/${run.maxHp}`;
   $("#map-gold").textContent = `${run.gold} ✦`;
   $("#map-wins").textContent = run.wins;
   $("#map-deck-count").textContent = run.deck.length;
   $("#map-relics").innerHTML = run.relics.map((id) => `<span class="relic-chip" title="${relics[id].description}">${relics[id].icon} ${relics[id].name}</span>`).join("");
-  $("#map-path").innerHTML = mapNodes.map((node, index) => {
-    const status = index < run.stage ? "completed" : index === run.stage ? "current" : "future";
-    return `<div class="map-node ${status}"><div class="map-node-orb">${index < run.stage ? "✓" : node.icon}</div><span class="map-node-label">${node.label}</span></div>`;
+  const edgeMarkup = run.map.edges.map((edge) => {
+    const from = run.map.nodes.find((node) => node.id === edge.from);
+    const to = run.map.nodes.find((node) => node.id === edge.to);
+    const edgeState = run.completedNodeIds.includes(edge.from) ? "revealed" : "";
+    return `<line class="map-edge ${edgeState}" x1="${8 + from.layer * 16.8}" y1="${from.y}" x2="${8 + to.layer * 16.8}" y2="${to.y}" />`;
   }).join("");
-  const flavours = [
-    "El viento trae olor a ceniza. Las Moiras guardan silencio.",
-    "Una voz sin boca pronuncia tu nombre desde las ruinas.",
-    "El mármol está frío. Aquí descansaron dioses que ya nadie recuerda.",
-    "Tras la puerta de bronce, algo enorme respira con paciencia.",
-    "El destino te ofrece una mano. No dice qué cobrará por ella.",
-    "La montaña tiembla. El último sendero ya no permite volver atrás.",
-    "Al otro lado del umbral, Tifón afila el mundo.",
-  ];
-  $("#map-flavour-text").textContent = flavours[run.stage] || flavours[flavours.length - 1];
-  const choices = run.stage >= mapNodes.length - 1 ? [mapNodes[mapNodes.length - 1]] : [mapNodes[run.stage], ...(run.stage === 0 || run.stage === 3 ? [mapNodes[run.stage + 1]] : [])];
+  const nodeMarkup = run.map.nodes.map((node) => {
+    const completed = run.completedNodeIds.includes(node.id);
+    const available = run.availableNodeIds.includes(node.id);
+    const current = run.activeNodeId === node.id;
+    const status = completed ? "completed" : current ? "current" : available ? "available" : "future";
+    return `<button class="map-node ${status}" style="--node-x:${8 + node.layer * 16.8}%;--node-y:${node.y}%" data-action="choose-node" data-node-id="${node.id}" ${available ? "" : "disabled"} title="${node.desc}"><span class="map-node-orb">${completed ? "✓" : node.icon}</span><span class="map-node-label">${node.label}</span><span class="map-node-layer">${node.layer === run.map.layers.length - 1 ? "JEFE" : `CAPA ${node.layer + 1}`}</span></button>`;
+  }).join("");
+  $("#map-path").innerHTML = `<div class="map-graph"><svg class="map-edges" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${edgeMarkup}</svg>${nodeMarkup}</div>`;
+  $("#map-flavour-text").textContent = activeNode?.flavour || "El bosque se abre en varias direcciones. Elige el camino que mejor encaje con tu mazo.";
+  const choices = run.map.nodes.filter((node) => run.availableNodeIds.includes(node.id));
   $("#node-choices").innerHTML = choices.map((node) => `
-    <button class="node-choice" data-action="choose-node" data-node="${node.type}" data-node-index="${mapNodes.indexOf(node)}">
-      <span class="node-choice-icon">${node.icon}</span><span><span class="node-choice-name">${node.label}</span><span class="node-choice-desc">${node.desc}</span></span><span class="node-choice-arrow">→</span>
+    <button class="node-choice" data-action="choose-node" data-node-id="${node.id}">
+      <span class="node-choice-icon">${node.icon}</span><span><span class="node-choice-name">${node.label}</span><span class="node-choice-desc">${node.desc}</span><span class="node-choice-kind">${node.type === "battle" ? "COMBATE" : node.type === "elite" ? "ÉLITE" : node.type === "camp" ? "DESCANSO" : node.type === "boss" ? "JEFE" : "EVENTO"}</span></span><span class="node-choice-arrow">→</span>
     </button>`).join("");
 }
 
-function chooseNode(type, nodeIndex) {
-  const available = state.run ? [state.run.stage, state.run.stage + 1].filter((index) => index < mapNodes.length) : [];
-  if (!state.run || !available.includes(nodeIndex)) {
+function chooseNode(nodeId) {
+  const run = state.run;
+  const node = run?.map.nodes.find((item) => item.id === nodeId);
+  if (!run || !node || !run.availableNodeIds.includes(nodeId)) {
     toast("Ese camino todavía no está abierto.");
     return;
   }
-  state.run.stage = nodeIndex;
-  if (type === "battle") startCombat(randomNormalEnemy());
-  if (type === "elite") startCombat("cyclops");
-  if (type === "boss") startCombat("typhon");
-  if (type === "camp") openCamp();
-  if (type === "event") openEvent();
+  run.activeNodeId = node.id;
+  run.mapLayer = node.layer;
+  if (node.type === "battle") startCombat(randomNormalEnemy());
+  if (node.type === "elite") startCombat("cyclops");
+  if (node.type === "boss") startCombat("typhon");
+  if (node.type === "camp") openCamp();
+  if (node.type === "event") openEvent();
 }
 
 function randomNormalEnemy() {
-  const pool = state.run.stage < 3 ? ["harpy", "sphinx"] : ["sphinx", "chimera"];
+  const pool = state.run.mapLayer < 2 ? ["harpy", "sphinx"] : ["sphinx", "chimera"];
   return pool[Math.floor(Math.random() * pool.length)];
 }
 
@@ -323,6 +404,7 @@ function playCard(index) {
   if (state.run.hp <= 0) return endRun(false);
   if (c.enemy.hp <= 0) return winCombat();
   render();
+  animateCombatant(".enemy-area .combatant", def.type === "Ataque" ? "hit" : "pulse");
 }
 
 function endTurn() {
@@ -364,6 +446,7 @@ function enemyTurn() {
   drawCards(5);
   if (state.run.hp <= 0) return endRun(false);
   render();
+  animateCombatant(".player-area .combatant", "hit");
 }
 
 function hitEnemy(amount) {
@@ -451,7 +534,17 @@ function chooseReward(index) {
 
 function continueAfterReward() {
   state.reward = null;
-  state.run.stage += 1;
+  advanceAfterNode();
+}
+
+function advanceAfterNode() {
+  const run = state.run;
+  const node = run?.map.nodes.find((item) => item.id === run.activeNodeId);
+  if (!run || !node) return;
+  if (!run.completedNodeIds.includes(node.id)) run.completedNodeIds.push(node.id);
+  run.availableNodeIds = node.children || [];
+  run.activeNodeId = null;
+  run.mapLayer = Math.min(node.layer + 1, run.map.layers.length - 1);
   state.screen = "map";
   render();
 }
@@ -465,7 +558,8 @@ function openCamp() {
 }
 
 function openEvent() {
-  const isPact = state.run.stage >= 4;
+  const node = state.run.map.nodes.find((item) => item.id === state.run.activeNodeId);
+  const isPact = (node?.layer || 0) >= 4;
   state.modal = { kind: "event", title: isPact ? "El Pacto de la Sombra" : "El Oráculo sin Rostro", copy: isPact ? "Una sombra te ofrece poder a cambio de una promesa que no puedes leer." : "El oráculo te muestra tres finales posibles. Solo uno tiene un precio visible.", options: isPact ? [
     { id: "power", title: "Aceptar la marca", desc: "Pierdes 10 vitalidad y ganas una reliquia aleatoria." },
     { id: "gold", title: "Vender un recuerdo", desc: "Pierdes 1 carta común y ganas 35 oro." },
@@ -487,14 +581,14 @@ function resolveModal(choice) {
       toast(`Recuperas ${amount} de vitalidad.`);
     }
     if (choice === "upgrade") upgradeRandomCard();
-    state.run.stage += 1; state.screen = "map";
+    advanceAfterNode();
   }
   if (modal.kind === "event") {
     if (choice === "vision") { state.run.hp = Math.max(1, state.run.hp - 8); addRandomCard(true); }
     if (choice === "blessing") { state.run.maxHp += 8; state.run.hp = Math.min(state.run.maxHp, state.run.hp + 8); }
     if (choice === "power") { state.run.hp = Math.max(1, state.run.hp - 10); state.run.relics.push(randomRelic()); }
     if (choice === "gold") { removeCommonCard(); state.run.gold += 35; }
-    state.run.stage += 1; state.screen = "map";
+    advanceAfterNode();
   }
   state.modal = null;
   render();
@@ -542,7 +636,8 @@ function renderBattle() {
   if (!c) return;
   const enemy = c.enemy;
   const character = characters[state.run.characterId];
-  $("#battle-stage-label").textContent = `· NODO ${state.run.stage + 1}`;
+  const node = state.run.map.nodes.find((item) => item.id === state.run.activeNodeId);
+  $("#battle-stage-label").textContent = `· CAPA ${(node?.layer || 0) + 1}`;
   $("#battle-title").textContent = enemy.boss ? "El padre de monstruos despierta" : `${enemy.name} reclama tu sangre`;
   $("#battle-turn-label").textContent = `TURNO ${c.turn}`;
   const enemyStatuses = Object.entries(enemy.status).filter(([, value]) => value > 0).map(([key, value]) => `<span class="status-badge ${key}">${statusName(key)} ${value}</span>`).join("");
@@ -550,9 +645,9 @@ function renderBattle() {
   const intentText = intent.type === "attack" ? `⚔ ${intent.amount} · ${intent.label}` : intent.type === "block" ? `◇ +${intent.amount} bloqueo` : `☽ ${intent.label}`;
   $("#enemy-area").innerHTML = `<div class="combatant" style="--combat-color:${enemy.color}"><div class="combatant-icon">${enemy.icon}</div><div class="combatant-name">${enemy.name}</div><div class="combatant-type">${enemy.type}</div><div class="health-track"><div class="health-fill" style="width:${clamp(enemy.hp / enemy.maxHp * 100, 0, 100)}%; background:linear-gradient(90deg,${enemy.color},#ffb56d)"></div></div><div class="combatant-meta"><span><strong>${Math.max(0, enemy.hp)}</strong> / ${enemy.maxHp} PV</span><span>Bloqueo <strong>${enemy.block}</strong></span></div><div class="status-row">${enemyStatuses}</div><div class="intent">Intención · ${intentText}</div></div>`;
   const playerStatuses = ["heat", "gaze", "fury", "momentum"].filter((key) => (c.player[key] || 0) > 0).map((key) => `<span class="status-badge">${statusName(key)} ${c.player[key]}</span>`).join("");
-  $("#player-area").innerHTML = `<div class="combatant"><div class="combatant-icon">${character.icon}</div><div class="combatant-name">${character.name}</div><div class="combatant-type">Tu leyenda</div><div class="health-track"><div class="health-fill player-fill" style="width:${clamp(state.run.hp / state.run.maxHp * 100, 0, 100)}%"></div></div><div class="combatant-meta"><span><strong>${Math.max(0, state.run.hp)}</strong> / ${state.run.maxHp} PV</span><span>Bloqueo <strong>${c.player.block}</strong></span><span>Energía <strong>${c.energy}/${c.maxEnergy}</strong></span></div><div class="status-row">${playerStatuses}</div></div>`;
+  $("#player-area").innerHTML = `<div class="combatant player-combatant"><div class="combatant-portrait"><img src="${character.portrait}" alt="${character.portraitAlt}" /></div><div class="combatant-name">${character.name}</div><div class="combatant-type">Tu leyenda</div><div class="health-track"><div class="health-fill player-fill" style="width:${clamp(state.run.hp / state.run.maxHp * 100, 0, 100)}%"></div></div><div class="combatant-meta"><span><strong>${Math.max(0, state.run.hp)}</strong> / ${state.run.maxHp} PV</span><span>Bloqueo <strong>${c.player.block}</strong></span><span>Energía <strong>${c.energy}/${c.maxEnergy}</strong></span></div><div class="status-row">${playerStatuses}</div></div>`;
   $("#battle-log").innerHTML = c.log.map((item) => `<span>${item}</span>`).join(" · ");
-  $("#combat-character-line").innerHTML = `<span class="mini-icon">${character.icon}</span><strong>${character.name}</strong>`;
+  $("#combat-character-line").innerHTML = `<span class="mini-icon"><img class="mini-portrait" src="${character.portrait}" alt="" /></span><strong>${character.name}</strong>`;
   $("#combat-hp").textContent = `${Math.max(0, state.run.hp)} / ${state.run.maxHp}`;
   $("#combat-block").textContent = c.player.block;
   $("#combat-gold").textContent = `${state.run.gold} ✦`;
@@ -561,10 +656,21 @@ function renderBattle() {
   $("#hand").innerHTML = c.hand.map((card, index) => renderCard(card, index, c.energy)).join("");
 }
 
+function animateCombatant(selector, className) {
+  requestAnimationFrame(() => {
+    const node = $(selector);
+    if (!node) return;
+    node.classList.remove("hit", "pulse");
+    void node.offsetWidth;
+    node.classList.add(className);
+    setTimeout(() => node.classList.remove(className), 520);
+  });
+}
+
 function renderCard(card, index, energy = 0) {
   const def = cardDef(card);
   const description = def.text(card);
-  return `<button class="card ${card.upgraded ? "upgraded" : ""} ${def.cost > energy ? "unplayable" : ""}" style="--card-color:${def.color}" data-action="play-card" data-card-index="${index}" title="${def.rarity}"><span class="card-cost">${def.cost}</span><span class="card-symbol">${def.icon}</span><h4>${def.name}${card.upgraded ? " +" : ""}</h4><span class="card-type">${def.type}</span><p>${description}</p></button>`;
+  return `<button class="card ${card.upgraded ? "upgraded" : ""} ${def.cost > energy ? "unplayable" : ""}" style="--card-color:${def.color};--card-index:${index}" data-action="play-card" data-card-index="${index}" title="${def.rarity}"><span class="card-cost">${def.cost}</span><span class="card-symbol">${def.icon}</span><h4>${def.name}${card.upgraded ? " +" : ""}</h4><span class="card-type">${def.type}</span><p>${description}</p></button>`;
 }
 
 function renderReward() {
@@ -604,7 +710,7 @@ document.addEventListener("click", (event) => {
   if (action === "select-character") { state.selectedCharacter = target.dataset.character; render(); $("#start-button").textContent = `Invocar a ${characters[state.selectedCharacter].name}`; $("#start-button").disabled = false; }
   if (action === "start-run") startRun();
   if (action === "new-run") resetToSelect();
-  if (action === "choose-node") chooseNode(target.dataset.node, Number(target.dataset.nodeIndex));
+  if (action === "choose-node") chooseNode(target.dataset.nodeId);
   if (action === "play-card") playCard(Number(target.dataset.cardIndex));
   if (action === "end-turn") endTurn();
   if (action === "choose-reward") chooseReward(Number(target.dataset.rewardIndex));
