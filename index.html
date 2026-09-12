@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0d1020" />
+    <meta
+      name="description"
+      content="Mithrilyc: un deckbuilder roguelike de criaturas míticas."
+    />
+    <title>Mithrilyc — Mythic Deckbuilder</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand-lockup">
+          <div class="brand-mark" aria-hidden="true">✦</div>
+          <div>
+            <p class="eyebrow">MITOLOGÍA · ESTRATEGIA · RIESGO</p>
+            <h1><span>Mithrilyc</span></h1>
+          </div>
+        </div>
+        <div class="topbar-actions">
+          <div id="run-summary" class="run-summary" aria-live="polite"></div>
+          <button class="button button-ghost" data-action="new-run">Nueva partida</button>
+        </div>
+      </header>
+
+      <main>
+        <section id="screen-select" class="screen screen-select active">
+          <div class="hero-copy">
+            <p class="eyebrow">EL DESTINO HA ROTO SUS CADENAS</p>
+            <h2>El Olimpo te teme.<br /><em>Haz que recuerde por qué.</em></h2>
+            <p class="hero-description">
+              Escoge una criatura, construye una leyenda con cartas y atraviesa un
+              panteón que cambia en cada partida.
+            </p>
+          </div>
+          <div class="selection-heading">
+            <div>
+              <p class="eyebrow">ELIGE TU LEYENDA</p>
+              <h3>Tres monstruos. Tres formas de romper el destino.</h3>
+            </div>
+            <div class="selection-note">La primera versión es un prototipo jugable.</div>
+          </div>
+          <div id="character-grid" class="character-grid"></div>
+          <div class="select-footer">
+            <div class="tip-card"><span>✹</span><span>Consejo de las Moiras: ninguna derrota es inútil.</span></div>
+            <button id="start-button" class="button button-primary" data-action="start-run" disabled>
+              Elige una criatura
+            </button>
+          </div>
+        </section>
+
+        <section id="screen-map" class="screen">
+          <div class="screen-heading compact-heading">
+            <div>
+              <p class="eyebrow">EL CAMINO DE LOS HÉROES</p>
+              <h2>Elige tu siguiente desafío</h2>
+            </div>
+            <p class="screen-subtitle">Cada desvío es una apuesta. Cada apuesta escribe tu leyenda.</p>
+          </div>
+          <div class="map-layout">
+            <div class="map-panel panel">
+              <div class="panel-heading">
+                <span class="panel-kicker">RUTA DEL DESTINO</span>
+                <span id="map-stage-label" class="panel-value"></span>
+              </div>
+              <div id="map-path" class="map-path"></div>
+              <div class="map-flavour">
+                <span class="flavour-icon">☽</span>
+                <p id="map-flavour-text">El viento trae olor a ceniza. Las Moiras guardan silencio.</p>
+              </div>
+            </div>
+            <aside class="map-sidebar">
+              <div class="panel run-sheet">
+                <div class="panel-heading">
+                  <span class="panel-kicker">TU LEYENDA</span>
+                  <span id="map-character-icon" class="character-icon-small"></span>
+                </div>
+                <div id="map-character-name" class="run-character-name"></div>
+                <div class="stat-grid">
+                  <div class="stat"><span>Vitalidad</span><strong id="map-hp"></strong></div>
+                  <div class="stat"><span>Oro</span><strong id="map-gold"></strong></div>
+                  <div class="stat"><span>Victorias</span><strong id="map-wins"></strong></div>
+                  <div class="stat"><span>Cartas</span><strong id="map-deck-count"></strong></div>
+                </div>
+                <div class="relics-heading">RELIQUIAS</div>
+                <div id="map-relics" class="relic-list"></div>
+              </div>
+              <div class="panel node-choices-panel">
+                <div class="panel-heading"><span class="panel-kicker">PRÓXIMO NODO</span></div>
+                <div id="node-choices" class="node-choices"></div>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section id="screen-battle" class="screen">
+          <div class="screen-heading battle-heading">
+            <div>
+              <p class="eyebrow">COMBATE <span id="battle-stage-label"></span></p>
+              <h2 id="battle-title">El destino se enfrenta a ti</h2>
+            </div>
+            <div id="battle-turn-label" class="turn-label"></div>
+          </div>
+          <div class="battle-layout">
+            <div class="battle-arena panel">
+              <div id="enemy-area" class="enemy-area"></div>
+              <div class="arena-divider"><span>✦</span></div>
+              <div id="player-area" class="player-area"></div>
+              <div id="battle-log" class="battle-log" aria-live="polite"></div>
+            </div>
+            <aside class="battle-sidebar">
+              <div class="panel combat-stats-panel">
+                <div class="panel-heading"><span class="panel-kicker">ESTADO DE LA RUN</span></div>
+                <div id="combat-character-line" class="combat-character-line"></div>
+                <div class="combat-stat-row"><span>Vitalidad</span><strong id="combat-hp"></strong></div>
+                <div class="combat-stat-row"><span>Bloqueo</span><strong id="combat-block"></strong></div>
+                <div class="combat-stat-row"><span>Oro</span><strong id="combat-gold"></strong></div>
+                <div class="relics-heading">RELIQUIAS ACTIVAS</div>
+                <div id="combat-relics" class="relic-list"></div>
+              </div>
+              <button class="button button-primary end-turn-button" data-action="end-turn">Terminar turno <span>↵</span></button>
+            </aside>
+          </div>
+          <div class="hand-panel panel">
+            <div class="hand-heading">
+              <div>
+                <span class="panel-kicker">TU MANO</span>
+                <strong id="energy-label"></strong>
+              </div>
+              <span class="hand-hint">Haz clic en una carta para jugarla</span>
+            </div>
+            <div id="hand" class="hand"></div>
+          </div>
+        </section>
+
+        <section id="screen-reward" class="screen reward-screen">
+          <div class="reward-hero">
+            <div class="reward-sigil">✦</div>
+            <p class="eyebrow">VICTORIA</p>
+            <h2>El destino retrocede.</h2>
+            <p id="reward-flavour">Tu leyenda se hace más peligrosa.</p>
+          </div>
+          <div class="reward-panel panel">
+            <div class="panel-heading reward-heading">
+              <div><span class="panel-kicker">RECOMPENSA MÍTICA</span><h3>Escoge una carta</h3></div>
+              <span class="reward-gold">+<span id="reward-gold-amount"></span> oro</span>
+            </div>
+            <div id="reward-cards" class="reward-cards"></div>
+            <button class="button button-ghost skip-button" data-action="skip-reward">No necesito nada. Continuar</button>
+          </div>
+        </section>
+
+        <section id="screen-ending" class="screen ending-screen">
+          <div class="ending-card panel">
+            <div class="ending-sigil">✦</div>
+            <p class="eyebrow" id="ending-kicker">LEYENDA COMPLETADA</p>
+            <h2 id="ending-title">El panteón ha caído.</h2>
+            <p id="ending-copy"></p>
+            <div id="ending-stats" class="ending-stats"></div>
+            <button class="button button-primary" data-action="new-run">Escribir otra leyenda</button>
+          </div>
+        </section>
+      </main>
+
+      <div id="modal-root" class="modal-root"></div>
+      <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
+
