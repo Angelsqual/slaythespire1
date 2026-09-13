@@ -124,11 +124,11 @@ const cards = {
 };
 
 const enemies = {
-  harpy: { name: "Arpía del Estigia", icon: "🪽", type: "Acosadora celeste", maxHp: 34, hp: 34, color: "#d2a5ff", intent: "harpy" },
-  sphinx: { name: "Esfinge del Umbral", icon: "🦁", type: "Guardiana enigmática", maxHp: 49, hp: 49, color: "#f2c56d", intent: "sphinx" },
-  chimera: { name: "Quimera de Bronce", icon: "🦁", type: "Fiera de tres almas", maxHp: 58, hp: 58, color: "#ff9d6c", intent: "chimera" },
-  cyclops: { name: "Cíclope Constructor", icon: "👁️", type: "Coloso del yunque", maxHp: 70, hp: 70, color: "#ff7d86", intent: "cyclops" },
-  typhon: { name: "Tifón, padre de monstruos", icon: "🌋", type: "Jefe · Cataclismo primordial", maxHp: 124, hp: 124, color: "#ff7d86", intent: "typhon", boss: true },
+  harpy: { name: "Arpía del Estigia", icon: "🪽", portrait: "assets/harpy.png", portraitAlt: "Retrato pintado de la Arpía del Estigia", type: "Acosadora celeste", maxHp: 34, hp: 34, color: "#d2a5ff", intent: "harpy" },
+  sphinx: { name: "Esfinge del Umbral", icon: "🦁", portrait: "assets/sphinx.png", portraitAlt: "Retrato pintado de la Esfinge del Umbral", type: "Guardiana enigmática", maxHp: 49, hp: 49, color: "#f2c56d", intent: "sphinx" },
+  chimera: { name: "Quimera de Bronce", icon: "🦁", portrait: "assets/chimera.png", portraitAlt: "Retrato pintado de la Quimera de Bronce", type: "Fiera de tres almas", maxHp: 58, hp: 58, color: "#ff9d6c", intent: "chimera" },
+  cyclops: { name: "Cíclope Constructor", icon: "👁️", portrait: "assets/cyclops.png", portraitAlt: "Retrato pintado del Cíclope Constructor", type: "Coloso del yunque", maxHp: 70, hp: 70, color: "#ff7d86", intent: "cyclops" },
+  typhon: { name: "Tifón, padre de monstruos", icon: "🌋", portrait: "assets/typhon.png", portraitAlt: "Retrato pintado de Tifón", type: "Jefe · Cataclismo primordial", maxHp: 124, hp: 124, color: "#ff7d86", intent: "typhon", boss: true },
 };
 
 const mapBlueprint = [
@@ -138,14 +138,18 @@ const mapBlueprint = [
       { type: "battle", label: "Sendero de raíces", icon: "⚔", desc: "Un combate sencillo para probar tu mazo.", flavour: "Las raíces se apartan apenas lo suficiente para dejarte pasar. Algo te sigue desde la maleza." },
       { type: "event", label: "Altar cubierto", icon: "☽", desc: "Una ofrenda antigua pide una decisión.", flavour: "La piedra conserva el nombre de un dios que ya no tiene nadie que lo recuerde." },
       { type: "camp", label: "Claro de luciérnagas", icon: "✿", desc: "Descansa o templa una carta.", flavour: "Entre las luces doradas, el bosque parece respirar al ritmo de tu corazón." },
+      { type: "battle", label: "Puerta de espinos", icon: "⚔", desc: "Abre paso entre raíces que sangran savia.", flavour: "Los espinos forman una muralla. Detrás, algo golpea el tronco desde dentro." },
+      { type: "event", label: "Estanque susurrante", icon: "⌁", desc: "Escucha una pista sobre las rutas futuras.", flavour: "El agua repite tus pensamientos con una voz que no reconoces." },
     ],
   },
   {
     label: "Los caminos que se separan",
     nodes: [
       { type: "battle", label: "Puente hundido", icon: "⚔", desc: "Cruza un barranco guardado por arpías.", flavour: "El puente termina en el aire. Las arpías han hecho de la otra orilla su nido." },
+      { type: "camp", label: "Cuenca de luna", icon: "✿", desc: "Recupera fuerzas en agua plateada.", flavour: "La luna se ha quedado atrapada en la cuenca. Beber de ella deja un recuerdo extraño." },
       { type: "event", label: "Pozo de los ecos", icon: "⌁", desc: "Pregunta al bosque, pero escucha el precio.", flavour: "Tu voz regresa con otra voz detrás. El pozo sabe una ruta que tú no ves." },
-      { type: "camp", label: "Círculo de piedra", icon: "✿", desc: "Un descanso seguro junto a las ruinas.", flavour: "Los monolitos forman un reloj sin agujas. Aquí el tiempo parece más lento." },
+      { type: "battle", label: "Arboleda del ocaso", icon: "⚔", desc: "Un combate entre troncos teñidos de rojo.", flavour: "Las hojas caen aunque no sopla el viento. Cada una lleva una pequeña marca de garra." },
+      { type: "elite", label: "Nido del basilisco", icon: "♜", desc: "Un duelo élite con botín excepcional.", flavour: "La maleza está cubierta de cristal. El basilisco duerme con un ojo abierto." },
     ],
   },
   {
@@ -154,6 +158,8 @@ const mapBlueprint = [
       { type: "elite", label: "Guardia de bronce", icon: "♜", desc: "Un enemigo élite con una recompensa mayor.", flavour: "Las armaduras del viejo templo caminan sin nadie dentro. Una de ellas te señala." },
       { type: "event", label: "Jardín petrificado", icon: "◉", desc: "Arriesga vitalidad por una mejora poderosa.", flavour: "Cada estatua tiene unos ojos demasiado parecidos a los de Medusa." },
       { type: "battle", label: "Barranco de humo", icon: "⚔", desc: "Combate contra una criatura de la espesura.", flavour: "Una grieta humea bajo los helechos. El olor recuerda al hierro caliente." },
+      { type: "camp", label: "Círculo de piedra", icon: "✿", desc: "Un descanso seguro junto a las ruinas.", flavour: "Los monolitos forman un reloj sin agujas. Aquí el tiempo parece más lento." },
+      { type: "battle", label: "Vado de aguas negras", icon: "⚔", desc: "Cruza un río que no refleja tu rostro.", flavour: "El agua no moja, pero sí deja una sombra fría alrededor de tus tobillos." },
     ],
   },
   {
@@ -162,14 +168,38 @@ const mapBlueprint = [
       { type: "event", label: "Oráculo sin rostro", icon: "☽", desc: "Una visión puede cambiar tu construcción.", flavour: "La máscara del oráculo se gira sola hacia ti. No tiene ojos, pero te está mirando." },
       { type: "battle", label: "Galería de mármol", icon: "⚔", desc: "Un combate normal entre dioses caídos.", flavour: "Las columnas muestran victorias de héroes que ya no existen. La próxima inscripción está vacía." },
       { type: "elite", label: "Puerta del coloso", icon: "♜", desc: "El guardián más duro antes del umbral.", flavour: "La puerta no se abre: se inclina hacia delante, como si el edificio entero quisiera luchar." },
+      { type: "battle", label: "Santuario colgante", icon: "⚔", desc: "Lucha sobre un puente suspendido.", flavour: "El santuario cuelga de cadenas oxidadas. Cada golpe hace temblar las campanas." },
+      { type: "camp", label: "Cripta de hiedra", icon: "✿", desc: "Una sala tranquila entre raíces y mármol.", flavour: "Las raíces han protegido una pequeña llama durante siglos. Todavía reconoce a los vivos." },
+    ],
+  },
+  {
+    label: "El lago de ceniza",
+    nodes: [
+      { type: "battle", label: "Lago de ceniza", icon: "⚔", desc: "Una última batalla para afinar tu mazo.", flavour: "Bajo la ceniza flotan coronas, espadas y nombres. Algo se mueve debajo." },
+      { type: "event", label: "Pacto de sombra", icon: "⌁", desc: "El destino ofrece una ventaja con un coste.", flavour: "Una sombra te ofrece la mano. En su palma está dibujado el mapa que acabas de recorrer." },
+      { type: "camp", label: "Hoguera lunar", icon: "✿", desc: "Descansa antes de adentrarte en la montaña.", flavour: "La luna se refleja en las brasas. El camino de vuelta ha desaparecido." },
+      { type: "elite", label: "Arena de bronce", icon: "♜", desc: "Un combate élite por una reliquia.", flavour: "El suelo de la arena está lleno de nombres. El tuyo empieza a aparecer solo." },
+      { type: "event", label: "Hilo rojo", icon: "⌁", desc: "Cambia una carta por una oportunidad incierta.", flavour: "Un hilo rojo cruza el lago y desaparece bajo la montaña." },
     ],
   },
   {
     label: "El último ascenso",
     nodes: [
-      { type: "camp", label: "Hoguera lunar", icon: "✿", desc: "Último descanso antes del jefe.", flavour: "La luna se refleja en las brasas. El camino de vuelta ha desaparecido." },
-      { type: "battle", label: "Lago de ceniza", icon: "⚔", desc: "Una última batalla para afinar tu mazo.", flavour: "Bajo la ceniza flotan coronas, espadas y nombres. Algo se mueve debajo." },
-      { type: "event", label: "Pacto final", icon: "⌁", desc: "El destino ofrece una ventaja con un coste.", flavour: "Una sombra te ofrece la mano. En su palma está dibujado el mapa que acabas de recorrer." },
+      { type: "battle", label: "Paso de la raíz celeste", icon: "⚔", desc: "Un combate contra guardianes del cielo.", flavour: "Una raíz atraviesa las nubes y forma un puente hacia la cima." },
+      { type: "camp", label: "Último hogar", icon: "✿", desc: "Prepara tu mazo para el tramo final.", flavour: "Las cenizas dibujan el contorno de todos los que llegaron antes que tú." },
+      { type: "event", label: "Corona de brasas", icon: "⌁", desc: "Una reliquia poderosa exige un sacrificio.", flavour: "La corona no pesa sobre la cabeza: pesa sobre la historia que llevas detrás." },
+      { type: "elite", label: "Escalera de titanes", icon: "♜", desc: "El último gran combate antes del umbral.", flavour: "Cada escalón es una vértebra de un dios antiguo. La montaña te siente subir." },
+      { type: "battle", label: "Observatorio roto", icon: "⚔", desc: "Rompe una última defensa del panteón.", flavour: "Los astrolabios apuntan a un cielo que todavía no existe." },
+    ],
+  },
+  {
+    label: "La garganta del mundo",
+    nodes: [
+      { type: "elite", label: "Custodio final", icon: "♜", desc: "Un élite de guardia ante la puerta del jefe.", flavour: "El custodio no protege la puerta: protege lo que ocurrirá si la abres." },
+      { type: "camp", label: "Brasero del umbral", icon: "✿", desc: "Último descanso. Después no habrá vuelta atrás.", flavour: "La llama arde azul y no proyecta sombra. Tu mazo parece más pesado junto a ella." },
+      { type: "event", label: "Pacto final", icon: "⌁", desc: "El destino ofrece su última ventaja.", flavour: "Una sombra te ofrece la mano. En su palma está dibujado el mapa que acabas de recorrer." },
+      { type: "battle", label: "Garganta volcánica", icon: "⚔", desc: "El último combate normal antes de Tifón.", flavour: "El aire quema los pulmones. Desde el fondo llega un latido del tamaño de una montaña." },
+      { type: "event", label: "Último oráculo", icon: "☽", desc: "Una visión final puede salvarte o quebrarte.", flavour: "El oráculo se quita la máscara. Debajo hay otra máscara que lleva tu nombre." },
     ],
   },
   {
@@ -181,12 +211,12 @@ const mapBlueprint = [
 ];
 
 function buildMap() {
-  const rows = [20, 50, 80];
+  const rows = [8, 29, 50, 71, 92];
   const layers = mapBlueprint.map((layer, layerIndex) => layer.nodes.map((node, nodeIndex) => ({
     ...node,
     id: `node-${layerIndex}-${nodeIndex}`,
     layer: layerIndex,
-    x: layerIndex / (mapBlueprint.length - 1) * 100,
+    x: 6 + layerIndex / (mapBlueprint.length - 1) * 88,
     y: layer.nodes.length === 1 ? 50 : rows[nodeIndex],
     children: [],
   })));
@@ -197,7 +227,7 @@ function buildMap() {
     layer.forEach((node, nodeIndex) => {
       const targetIndexes = nextLayer.length === 1
         ? [0]
-        : [...new Set([nodeIndex % nextLayer.length, (nodeIndex + 1) % nextLayer.length, ...(layerIndex % 2 === 0 ? [(nodeIndex + 2) % nextLayer.length] : [])])];
+        : [...new Set([nodeIndex % nextLayer.length, (nodeIndex + 1) % nextLayer.length, (nodeIndex + 2) % nextLayer.length])];
       node.children = targetIndexes.map((index) => nextLayer[index].id);
       node.children.forEach((childId) => edges.push({ from: node.id, to: childId }));
     });
@@ -286,7 +316,7 @@ function renderTopbar() {
   if (!state.run) { $("#run-summary").textContent = "Prototipo · build 01"; return; }
   const character = characters[state.run.characterId];
   const progress = state.run.completedNodeIds.length;
-  $("#run-summary").innerHTML = `<span style="color:${character.color}">${character.icon} ${character.name}</span> · Bosque de Nemea · ${progress}/16 hitos`;
+  $("#run-summary").innerHTML = `<span style="color:${character.color}">${character.icon} ${character.name}</span> · Bosque de Nemea · ${progress}/36 hitos`;
 }
 
 function renderMap() {
@@ -306,14 +336,14 @@ function renderMap() {
     const from = run.map.nodes.find((node) => node.id === edge.from);
     const to = run.map.nodes.find((node) => node.id === edge.to);
     const edgeState = run.completedNodeIds.includes(edge.from) ? "revealed" : "";
-    return `<line class="map-edge ${edgeState}" x1="${8 + from.layer * 16.8}" y1="${from.y}" x2="${8 + to.layer * 16.8}" y2="${to.y}" />`;
+    return `<line class="map-edge ${edgeState}" x1="${from.x}" y1="${from.y}" x2="${to.x}" y2="${to.y}" />`;
   }).join("");
   const nodeMarkup = run.map.nodes.map((node) => {
     const completed = run.completedNodeIds.includes(node.id);
     const available = run.availableNodeIds.includes(node.id);
     const current = run.activeNodeId === node.id;
     const status = completed ? "completed" : current ? "current" : available ? "available" : "future";
-    return `<button class="map-node ${status}" style="--node-x:${8 + node.layer * 16.8}%;--node-y:${node.y}%" data-action="choose-node" data-node-id="${node.id}" ${available ? "" : "disabled"} title="${node.desc}"><span class="map-node-orb">${completed ? "✓" : node.icon}</span><span class="map-node-label">${node.label}</span><span class="map-node-layer">${node.layer === run.map.layers.length - 1 ? "JEFE" : `CAPA ${node.layer + 1}`}</span></button>`;
+    return `<button class="map-node ${status}" style="--node-x:${node.x}%;--node-y:${node.y}%" data-action="choose-node" data-node-id="${node.id}" ${available ? "" : "disabled"} title="${node.desc}"><span class="map-node-orb">${completed ? "✓" : node.icon}</span><span class="map-node-label">${node.label}</span><span class="map-node-layer">${node.layer === run.map.layers.length - 1 ? "JEFE" : `CAPA ${node.layer + 1}`}</span></button>`;
   }).join("");
   $("#map-path").innerHTML = `<div class="map-graph"><svg class="map-edges" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${edgeMarkup}</svg>${nodeMarkup}</div>`;
   $("#map-flavour-text").textContent = activeNode?.flavour || "El bosque se abre en varias direcciones. Elige el camino que mejor encaje con tu mazo.";
@@ -643,7 +673,7 @@ function renderBattle() {
   const enemyStatuses = Object.entries(enemy.status).filter(([, value]) => value > 0).map(([key, value]) => `<span class="status-badge ${key}">${statusName(key)} ${value}</span>`).join("");
   const intent = enemy.intentData;
   const intentText = intent.type === "attack" ? `⚔ ${intent.amount} · ${intent.label}` : intent.type === "block" ? `◇ +${intent.amount} bloqueo` : `☽ ${intent.label}`;
-  $("#enemy-area").innerHTML = `<div class="combatant" style="--combat-color:${enemy.color}"><div class="combatant-icon">${enemy.icon}</div><div class="combatant-name">${enemy.name}</div><div class="combatant-type">${enemy.type}</div><div class="health-track"><div class="health-fill" style="width:${clamp(enemy.hp / enemy.maxHp * 100, 0, 100)}%; background:linear-gradient(90deg,${enemy.color},#ffb56d)"></div></div><div class="combatant-meta"><span><strong>${Math.max(0, enemy.hp)}</strong> / ${enemy.maxHp} PV</span><span>Bloqueo <strong>${enemy.block}</strong></span></div><div class="status-row">${enemyStatuses}</div><div class="intent">Intención · ${intentText}</div></div>`;
+  $("#enemy-area").innerHTML = `<div class="combatant enemy-combatant" style="--combat-color:${enemy.color}"><div class="enemy-portrait"><img src="${enemy.portrait}" alt="${enemy.portraitAlt}" /></div><div class="combatant-name">${enemy.name}</div><div class="combatant-type">${enemy.type}</div><div class="health-track"><div class="health-fill" style="width:${clamp(enemy.hp / enemy.maxHp * 100, 0, 100)}%; background:linear-gradient(90deg,${enemy.color},#ffb56d)"></div></div><div class="combatant-meta"><span><strong>${Math.max(0, enemy.hp)}</strong> / ${enemy.maxHp} PV</span><span>Bloqueo <strong>${enemy.block}</strong></span></div><div class="status-row">${enemyStatuses}</div><div class="intent">Intención · ${intentText}</div></div>`;
   const playerStatuses = ["heat", "gaze", "fury", "momentum"].filter((key) => (c.player[key] || 0) > 0).map((key) => `<span class="status-badge">${statusName(key)} ${c.player[key]}</span>`).join("");
   $("#player-area").innerHTML = `<div class="combatant player-combatant"><div class="combatant-portrait"><img src="${character.portrait}" alt="${character.portraitAlt}" /></div><div class="combatant-name">${character.name}</div><div class="combatant-type">Tu leyenda</div><div class="health-track"><div class="health-fill player-fill" style="width:${clamp(state.run.hp / state.run.maxHp * 100, 0, 100)}%"></div></div><div class="combatant-meta"><span><strong>${Math.max(0, state.run.hp)}</strong> / ${state.run.maxHp} PV</span><span>Bloqueo <strong>${c.player.block}</strong></span><span>Energía <strong>${c.energy}/${c.maxEnergy}</strong></span></div><div class="status-row">${playerStatuses}</div></div>`;
   $("#battle-log").innerHTML = c.log.map((item) => `<span>${item}</span>`).join(" · ");
@@ -670,7 +700,10 @@ function animateCombatant(selector, className) {
 function renderCard(card, index, energy = 0) {
   const def = cardDef(card);
   const description = def.text(card);
-  return `<button class="card ${card.upgraded ? "upgraded" : ""} ${def.cost > energy ? "unplayable" : ""}" style="--card-color:${def.color};--card-index:${index}" data-action="play-card" data-card-index="${index}" title="${def.rarity}"><span class="card-cost">${def.cost}</span><span class="card-symbol">${def.icon}</span><h4>${def.name}${card.upgraded ? " +" : ""}</h4><span class="card-type">${def.type}</span><p>${description}</p></button>`;
+  const category = def.type === "Ataque" ? "attack" : def.type === "Defensa" ? "defense" : def.type === "Poder" ? "power" : "skill";
+  const familyIcon = { attack: "⚔", defense: "🛡", power: "☼", skill: "✦" }[category];
+  const familyLabel = { attack: "ESPADA", defense: "ESCUDO", power: "PODER", skill: "HECHIZO" }[category];
+  return `<button class="card ${category}-card ${card.upgraded ? "upgraded" : ""} ${def.cost > energy ? "unplayable" : ""}" style="--card-color:${def.color};--card-index:${index}" data-action="play-card" data-card-index="${index}" title="${def.rarity}"><span class="card-cost">${def.cost}</span><span class="card-symbol" aria-hidden="true">${familyIcon}</span><h4>${def.name}${card.upgraded ? " +" : ""}</h4><span class="card-type">${familyLabel} · ${def.type}</span><p>${description}</p></button>`;
 }
 
 function renderReward() {
