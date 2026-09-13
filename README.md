@@ -6,8 +6,10 @@ Primera vertical slice jugable de un deckbuilder roguelike de criaturas míticas
 
 - Selección entre Dragón, Medusa y Minotauro.
 - Retratos originales pintados para las tres criaturas y fondo ilustrado del Bosque de Nemea.
+- Retratos ilustrados para Arpía, Esfinge, Quimera, Cíclope y Tifón.
 - Identidad de juego distinta para cada criatura: Calor, Mirada y Furia.
-- Mapa superior ramificado con seis capas, rutas abiertas, recorridas y ocultas.
+- Mapa superior tipo telaraña con ocho capas, 36 nodos y tres salidas por nodo.
+- Familias de cartas diferenciadas por espada, escudo, hechizo y poder.
 - Animaciones de entrada de cartas, flotación de retratos, pulsación de nodos y golpes en combate.
 - Mapa de decisiones con combates, élites, santuarios, eventos y jefe.
 - Combate por turnos con energía, mano, descarte, estados y bloqueo.
