@@ -280,6 +280,82 @@ button { font: inherit; }
   .hero-copy h2 { font-size: 50px; }
 }
 
+/* Card families and illustrated enemies. */
+.card {
+  overflow: hidden;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: var(--family-color);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--family-color), transparent 35%);
+}
+
+.attack-card { --family-color: #f47f6b; background: linear-gradient(160deg, rgba(244,127,107,.16), rgba(13,15,31,.96) 68%); }
+.defense-card { --family-color: #69c6d0; background: linear-gradient(160deg, rgba(105,198,208,.16), rgba(13,15,31,.96) 68%); }
+.skill-card { --family-color: #bb8af4; background: linear-gradient(160deg, rgba(187,138,244,.16), rgba(13,15,31,.96) 68%); }
+.power-card { --family-color: #f1c66b; background: linear-gradient(160deg, rgba(241,198,107,.16), rgba(13,15,31,.96) 68%); }
+.attack-card .card-type, .attack-card .card-symbol { color: #ff9a86; }
+.defense-card .card-type, .defense-card .card-symbol { color: #87e5e6; }
+.skill-card .card-type, .skill-card .card-symbol { color: #d0adff; }
+.power-card .card-type, .power-card .card-symbol { color: #ffe09a; }
+
+.card-symbol {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--family-color), transparent 35%);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--family-color), transparent 87%);
+  font-size: 21px;
+}
+
+.card-type {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  width: fit-content;
+  padding: 4px 7px;
+  border-radius: 99px;
+  background: color-mix(in srgb, var(--family-color), transparent 88%);
+}
+
+.enemy-portrait {
+  width: min(300px, 80%);
+  height: 175px;
+  margin: -6px auto -5px;
+  display: grid;
+  place-items: end center;
+  overflow: hidden;
+}
+
+.enemy-portrait img {
+  width: 100%;
+  height: 215px;
+  object-fit: contain;
+  object-position: center bottom;
+  filter: drop-shadow(0 20px 17px rgba(0,0,0,.44)) drop-shadow(0 0 17px color-mix(in srgb, var(--combat-color), transparent 60%));
+  animation: enemyBreath 4.2s ease-in-out infinite;
+}
+
+.enemy-combatant .combatant-name {
+  text-shadow: 0 0 22px color-mix(in srgb, var(--combat-color), transparent 65%);
+}
+
+@keyframes enemyBreath {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-4px) scale(1.015); }
+}
+
+@media (max-width: 650px) {
+  .enemy-portrait { width: min(260px, 90%); height: 150px; }
+  .enemy-portrait img { height: 185px; }
+}
+
 /* Visual identity pass: illustrated characters, animated map and living forest. */
 .character-art {
   width: calc(100% + 50px);
