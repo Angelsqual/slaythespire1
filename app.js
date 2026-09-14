@@ -225,9 +225,9 @@ function buildMap() {
     if (layerIndex === layers.length - 1) return;
     const nextLayer = layers[layerIndex + 1];
     layer.forEach((node, nodeIndex) => {
-      const targetIndexes = nextLayer.length === 1
-        ? [0]
-        : [...new Set([nodeIndex % nextLayer.length, (nodeIndex + 1) % nextLayer.length, (nodeIndex + 2) % nextLayer.length])];
+      const windowSize = Math.min(3, nextLayer.length);
+      const windowStart = Math.max(0, Math.min(nodeIndex - 1, nextLayer.length - windowSize));
+      const targetIndexes = Array.from({ length: windowSize }, (_, offset) => windowStart + offset);
       node.children = targetIndexes.map((index) => nextLayer[index].id);
       node.children.forEach((childId) => edges.push({ from: node.id, to: childId }));
     });
@@ -335,7 +335,9 @@ function renderMap() {
   const edgeMarkup = run.map.edges.map((edge) => {
     const from = run.map.nodes.find((node) => node.id === edge.from);
     const to = run.map.nodes.find((node) => node.id === edge.to);
-    const edgeState = run.completedNodeIds.includes(edge.from) ? "revealed" : "";
+    const edgeState = run.completedNodeIds.includes(edge.from)
+      ? "revealed"
+      : run.availableNodeIds.includes(edge.from) ? "open" : "";
     return `<line class="map-edge ${edgeState}" x1="${from.x}" y1="${from.y}" x2="${to.x}" y2="${to.y}" />`;
   }).join("");
   const nodeMarkup = run.map.nodes.map((node) => {
@@ -697,13 +699,22 @@ function animateCombatant(selector, className) {
   });
 }
 
-function renderCard(card, index, energy = 0) {
+const familyArt = {
+  attack: '<svg class="family-svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 51 51 13M38 12l14 14M21 43l9 9M17 47l-4 4 4-1 4 4 1-4"/></svg>',
+  defense: '<svg class="family-svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M32 6 52 14v17c0 13-8 22-20 28C20 53 12 44 12 31V14zM22 32l7 7 14-16"/></svg>',
+  skill: '<svg class="family-svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m32 7 4.5 16.5L53 28l-16.5 4.5L32 49l-4.5-16.5L11 28l16.5-4.5zM50 45l2 7 7 2-7 2-2 7-2-7-7-2 7-2z"/></svg>',
+  power: '<svg class="family-svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="32" cy="32" r="11"/><path d="M32 5v10M32 49v10M5 32h10M49 32h10M13 13l7 7M44 44l7 7M51 13l-7 7M20 44l-7 7"/></svg>',
+};
+
+function renderCard(card, index, energy = 0, action = "play-card") {
   const def = cardDef(card);
   const description = def.text(card);
   const category = def.type === "Ataque" ? "attack" : def.type === "Defensa" ? "defense" : def.type === "Poder" ? "power" : "skill";
-  const familyIcon = { attack: "⚔", defense: "🛡", power: "☼", skill: "✦" }[category];
   const familyLabel = { attack: "ESPADA", defense: "ESCUDO", power: "PODER", skill: "HECHIZO" }[category];
-  return `<button class="card ${category}-card ${card.upgraded ? "upgraded" : ""} ${def.cost > energy ? "unplayable" : ""}" style="--card-color:${def.color};--card-index:${index}" data-action="play-card" data-card-index="${index}" title="${def.rarity}"><span class="card-cost">${def.cost}</span><span class="card-symbol" aria-hidden="true">${familyIcon}</span><h4>${def.name}${card.upgraded ? " +" : ""}</h4><span class="card-type">${familyLabel} · ${def.type}</span><p>${description}</p></button>`;
+  const actionMarkup = action === "choose-reward"
+    ? `data-action="choose-reward" data-reward-index="${index}"`
+    : `data-action="play-card" data-card-index="${index}"`;
+  return `<button class="card ${category}-card ${card.upgraded ? "upgraded" : ""} ${def.cost > energy ? "unplayable" : ""}" style="--card-color:${def.color};--card-index:${index}" ${actionMarkup} title="${def.rarity}"><span class="card-cost">${def.cost}</span><span class="card-watermark">${familyArt[category]}</span><span class="card-symbol" aria-hidden="true">${familyArt[category]}</span><h4>${def.name}${card.upgraded ? " +" : ""}</h4><span class="card-type">${familyLabel} · ${def.type}</span><p>${description}</p></button>`;
 }
 
 function renderReward() {
@@ -711,7 +722,7 @@ function renderReward() {
   if (!reward) return;
   $("#reward-gold-amount").textContent = reward.gold;
   $("#reward-flavour").textContent = state.run.wins > 2 ? "Tu leyenda empieza a preocupar a los dioses." : "Aún queda sangre por derramar.";
-  $("#reward-cards").innerHTML = reward.cards.map((id, index) => `<div data-action="choose-reward" data-reward-index="${index}">${renderCard(cardFromId(id), index, 99)}</div>`).join("");
+  $("#reward-cards").innerHTML = reward.cards.map((id, index) => renderCard(cardFromId(id), index, 99, "choose-reward")).join("");
 }
 
 function renderEnding() {
