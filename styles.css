@@ -646,3 +646,172 @@ button { font: inherit; }
   .map-node-layer { font-size: 7px; }
 }
 
+/* Readability and game-feel pass: give the route web room to breathe. */
+.map-layout {
+  grid-template-columns: minmax(0, 1.85fr) minmax(300px, .7fr);
+  align-items: start;
+}
+
+.map-panel {
+  min-height: 820px;
+}
+
+.map-path {
+  height: 710px;
+  margin: 28px 0 18px;
+}
+
+.map-edge {
+  stroke: rgba(174, 195, 177, .11);
+  stroke-width: .24;
+  opacity: .48;
+}
+
+.map-edge.open {
+  stroke: rgba(125, 216, 208, .5);
+  stroke-width: .42;
+  stroke-dasharray: 2 1;
+  opacity: .92;
+}
+
+.map-edge.revealed {
+  stroke: rgba(242, 197, 109, .78);
+  stroke-width: .62;
+  opacity: 1;
+}
+
+.map-node {
+  width: 92px;
+  min-height: 88px;
+}
+
+.map-node-orb {
+  width: 58px;
+  height: 58px;
+}
+
+.map-node-label {
+  max-width: 92px;
+}
+
+.map-node.future {
+  opacity: .2;
+  filter: saturate(.45);
+}
+
+.map-node.available {
+  filter: drop-shadow(0 0 13px rgba(125, 216, 208, .27));
+}
+
+.map-flavour {
+  max-width: 780px;
+  margin-inline: auto;
+}
+
+/* Each card family gets a visual language, not just a text label. */
+.card {
+  min-height: 218px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.card-watermark {
+  position: absolute;
+  z-index: 0;
+  right: -13px;
+  top: 26px;
+  width: 116px;
+  height: 116px;
+  color: var(--family-color);
+  opacity: .13;
+  pointer-events: none;
+}
+
+.card-watermark .family-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.card-symbol {
+  position: relative;
+  z-index: 1;
+  padding: 7px;
+  font-size: 0;
+  color: var(--family-color);
+}
+
+.card-symbol .family-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.card-cost,
+.card h4,
+.card-type,
+.card p {
+  position: relative;
+  z-index: 1;
+}
+
+.attack-card .card-watermark {
+  transform: rotate(18deg) scale(1.35);
+}
+
+.defense-card .card-watermark {
+  transform: rotate(-8deg) scale(1.3);
+}
+
+.skill-card .card-watermark {
+  transform: rotate(12deg) scale(1.42);
+}
+
+.power-card .card-watermark {
+  transform: scale(1.3);
+}
+
+.attack-card {
+  background: linear-gradient(145deg, rgba(100, 35, 47, .98), rgba(40, 27, 43, .98));
+}
+
+.defense-card {
+  background: linear-gradient(145deg, rgba(25, 78, 88, .98), rgba(25, 38, 58, .98));
+}
+
+.skill-card {
+  background: linear-gradient(145deg, rgba(66, 42, 105, .98), rgba(35, 29, 66, .98));
+}
+
+.power-card {
+  background: linear-gradient(145deg, rgba(101, 72, 29, .98), rgba(45, 34, 40, .98));
+}
+
+@media (max-width: 650px) {
+  .map-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .map-panel {
+    min-height: 650px;
+  }
+
+  .map-path {
+    height: 570px;
+  }
+
+  .map-node {
+    width: 70px;
+    min-height: 74px;
+  }
+
+  .map-node-orb {
+    width: 45px;
+    height: 45px;
+    font-size: 17px;
+  }
+
+  .map-node-label {
+    max-width: 72px;
+    font-size: 8px;
+  }
+}
+
